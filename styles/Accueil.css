@@ -1,0 +1,17 @@
+body{
+  background-image: url("images/fond.jpeg");
+  width: auto;
+  height: auto;
+  opacity: 0.3;
+  position: relative;
+  background-repeat: no-repeat;
+}
+
+.top{
+ color: blue;
+ padding-top: 20px;
+ padding-left: 20px;
+ width: 30px;
+ height: 10px;
+ font-size: 20px;
+}
