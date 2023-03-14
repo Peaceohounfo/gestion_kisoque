@@ -83,7 +83,7 @@
     <div class="row" style="margin: 10px;">
       <div class="col-md-6 text-section">
         <h2>Bienvenue</h2>
-        <p>Découvrez les magazines les plus populaires du moment et accédez à des milliers d'articles en ligne grâce à notre plateforme de kiosque numérique !</p>
+        <p>La gestion de kiosque simplifiée et intuitive pour tous à l'ère de la digitalisation !</p>
         <a class="btn btn-green btn-sm" href="login.php">Se connecter</a>
       </div>
       <div class="col-md-6 image-section">
