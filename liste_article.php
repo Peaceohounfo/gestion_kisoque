@@ -24,9 +24,7 @@ foreach ($conts as $cont) {
 ;
         echo ("id : " . $cont["id_article"] . "<br/>") ;
         echo ("Nom_Article : " . $cont["nom_article"] . "<br/>") ;
-        echo ("Codif : " . $cont["codif"] . "<br/>") ;
         echo ("Parution : " . $cont["parution"] . "<br/>") ;
-        echo ("Code_Barre : " . $cont["code_barre"] . "<br/>") ;
         echo ("Stock: " . $cont["stock"] . "<br/>") ;
         echo ("Prix_achat_HT: " . $cont["prix_achat_HT"] . "<br/>") ;
         echo ("Prix_vente_HT: " . $cont["prix_vente_HT"] . "<br/>") ;

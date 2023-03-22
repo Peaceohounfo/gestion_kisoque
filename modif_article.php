@@ -20,12 +20,8 @@ $cont = $conts[0] ; ?>
 <input type="number" id="id_article" name="id_article"/><br/>
 <label for="nom_article"> Nom </label>
 <input type="text" id="nom_article" name="nom_article"/><br/>
-<label for="codif"> Codif </label>
-<input type="text" id="codif" name="codif"/><br/>
 <label for="parution">Parution </label>
 <input type="date" id="parution" name="parution"/><br/>
-<label for="code_barre"> Code_barre </label>
-<input type="text" id="code_barre" name="code_barre"/><br/>
 <label for="stock"> Stock</label>
 <input type="number" id="stock" name="stock"/><br/>
 <label for="prix_achat_HT">Prix d'achat hors taxe</label>

@@ -2,17 +2,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<title>Ajout Article</title>
+<title>Editer_ticket</title>
 </head>
 <body>
-<h1>Ajout d'un article</h1>
-<form action ="insert_article.php" method="POST">
-<label for="id_article"> identifiant</label>
-<input type="text" id="id_article" name="id_article"/><br/>
-<label for="nom_article"> Nom </label>
-<input type="text" id="nom_article" name="nom_article"/><br/>
+<h1>Ticket_Vente</h1>
+<form action ="insert_ticket.php" method="POST">
+<label for="id_ticket"> Identifiant</label>
+<input type="number" id="id_ticket" name="id_ticket"/><br/>
+<label for="date_vente"> Date_vente </label>
+<input type="date" id="date_vente" name="date_vente"/><br/>
+<label for="codif"> Codif </label>
+<input type="text" id="codif" name="codif"/><br/>
 <label for="parution">Parution </label>
 <input type="date" id="parution" name="parution"/><br/>
+<label for="code_barre"> Code_barre </label>
+<input type="text" id="code_barre" name="code_barre"/><br/>
 <label for="stock"> Stock</label>
 <input type="number" id="stock" name="stock"/><br/>
 <label for="prix_achat_HT">Prix d'achat hors taxe</label>
