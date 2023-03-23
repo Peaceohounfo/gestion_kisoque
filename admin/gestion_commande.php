@@ -198,8 +198,8 @@ include ("../connexion.php");
     <div class="row row-offcanvas row-offcanvas-left" style="margin-top: 78px;">
         <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
             <ul class="nav flex-column pl-1">
-                <li class="nav-item active"><a class="nav-link active" href="gestion_stock.php">Gestion stock</a></li>
-                <li class="nav-item"><a class="nav-link" href="gestion_commande.php">Gestion commande</a></li>
+                <li class="nav-item"><a class="nav-link" href="gestion_stock.php">Gestion stock</a></li>
+                <li class="nav-item active"><a class="nav-link active" href="gestion_commande.php">Gestion commande</a></li>
                 <li class="nav-item"><a class="nav-link" href="gestion_vente.php">Gestion vente</a></li>
                 <li class="nav-item"><a class="nav-link" href="gestion_contact.php">Gestion contact</a></li>
                 <li class="nav-item"><a class="nav-link" href="gestion_absence.php">Gestion absence</a></li>
@@ -210,21 +210,22 @@ include ("../connexion.php");
 
         <div class="col-md-9 col-lg-10 main">
             <h1 class="display-4 d-none d-sm-block">
-                Gestion stock
+                Gestion commande
             </h1>
-            <p class="lead d-none d-sm-block">Gestion des stocks</p>
+            <p class="lead d-none d-sm-block">Gestion des commandes</p>
             <?php
             $bdd = connectgestion_kiosque();
-            $sql = "SELECT * FROM article";
+            $sql = "SELECT commande.*, fournisseur.nom_fournisseur FROM `commande` LEFT JOIN fournisseur on fournisseur.id_fournisseur = commande.id_fournisseur";
             $req = $bdd->prepare($sql);
             $req->execute();
             $result = $req->fetchAll();
+            var_dump($result);
             ?>
             <table id="datatable" class="table table-striped table-bordered">
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nom article</th>
+                    <th>Nom fournisseur</th>
                     <th>Parution</th>
                     <th>Stock</th>
                     <th>Prix achat HT</th>
