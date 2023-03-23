@@ -199,6 +199,7 @@ include ("../connexion.php");
         <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
             <ul class="nav flex-column pl-1">
                 <li class="nav-item active"><a class="nav-link active" href="gestion_stock.php">Gestion stock</a></li>
+                
                 <li class="nav-item"><a class="nav-link" href="gestion_commande.php">Gestion commande</a></li>
                 <li class="nav-item"><a class="nav-link" href="gestion_vente.php">Gestion vente</a></li>
                 <li class="nav-item"><a class="nav-link" href="gestion_contact.php">Gestion contact</a></li>

@@ -198,7 +198,9 @@ include ("../connexion.php");
     <div class="row row-offcanvas row-offcanvas-left" style="margin-top: 78px;">
         <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
             <ul class="nav flex-column pl-1">
-                <li class="nav-item"><a class="nav-link" href="gestion_stock.php">Gestion stock</a></li>
+                <li class="nav-item"><a class="nav-link" href="gestion_stock.php">Gestion stock</a>
+                    
+                </li>
                 <li class="nav-item"><a class="nav-link" href="gestion_commande.php">Gestion commande</a></li>
                 <li class="nav-item"><a class="nav-link" href="gestion_vente.php">Gestion vente</a></li>
                 <li class="nav-item active"><a class="nav-link active" href="gestion_contact.php">Gestion contact</a></li>
@@ -212,27 +214,28 @@ include ("../connexion.php");
             <h1 class="display-4 d-none d-sm-block">
                 Gestion contact
             </h1>
-            <p class="lead d-none d-sm-block">Gestion des contacts</p>
+           
             <?php
             $bdd = connectgestion_kiosque();
             $sql = "SELECT * FROM fournisseur";
             $req = $bdd->prepare($sql);
             $req->execute();
             $result = $req->fetchAll();
-            var_dump($result);
+           
             ?>
             <table id="datatable" class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Nom article</th>
-                    <th>Parution</th>
-                    <th>Stock</th>
-                    <th>Prix achat HT</th>
-                    <th>Prix vente HT</th>
-                    <th>libelle</th>
-                    <th>Taux commission</th>
-                    <th>Tva</th>
+                    <th>Identifiant</th>
+                    <th>Nom fournisseur</th>
+                    <th>Numéro voie</th>
+                    <th>Nom voie</th>
+                    <th>Code Postal</th>
+                    <th>Ville</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Pays</th>
+                    <th>TVA</th>
                     <th>Options</th>
                 </tr>
                 </thead>
@@ -241,14 +244,15 @@ include ("../connexion.php");
                 <?php foreach ($result as $row) { ?>
                     <tr>
                         <td><?php echo $row['id_fournisseur']; ?></td>
-                        <td><?php echo $row['nom_article']; ?></td>
-                        <td><?php echo $row['parution']; ?></td>
-                        <td><?php echo $row['stock']; ?></td>
-                        <td><?php echo $row['prix_achat_HT']; ?></td>
-                        <td><?php echo $row['prix_vente_HT']; ?></td>
-                        <td><?php echo $row['libelle']; ?></td>
-                        <td><?php echo $row['taux_commission']; ?></td>
-                        <td><?php echo $row['tva']; ?></td>
+                        <td><?php echo $row['nom_fournisseur']; ?></td>
+                        <td><?php echo $row['num_voie']; ?></td>
+                        <td><?php echo $row['nom_voie']; ?></td>
+                        <td><?php echo $row['code_postale']; ?></td>
+                        <td><?php echo $row['ville']; ?></td>
+                        <td><?php echo $row['email']; ?></td>
+                        <td><?php echo $row['telephone']; ?></td>
+                        <td><?php echo $row['pays_fournisseur']; ?></td>
+                        <td><?php echo $row['TVA_fournisseur']; ?></td>
                         <td>
                             <p data-placement="top" data-toggle="tooltip" title="Edit">
                                 <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >

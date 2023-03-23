@@ -212,27 +212,22 @@ include ("../connexion.php");
             <h1 class="display-4 d-none d-sm-block">
                 Gestion commande
             </h1>
-            <p class="lead d-none d-sm-block">Gestion des commandes</p>
+           
             <?php
             $bdd = connectgestion_kiosque();
             $sql = "SELECT commande.*, fournisseur.nom_fournisseur FROM `commande` LEFT JOIN fournisseur on fournisseur.id_fournisseur = commande.id_fournisseur";
             $req = $bdd->prepare($sql);
             $req->execute();
             $result = $req->fetchAll();
-            var_dump($result);
+           
             ?>
             <table id="datatable" class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Nom fournisseur</th>
-                    <th>Parution</th>
-                    <th>Stock</th>
-                    <th>Prix achat HT</th>
-                    <th>Prix vente HT</th>
-                    <th>libelle</th>
-                    <th>Taux commission</th>
-                    <th>Tva</th>
+                    <th>Identifiant</th>
+                    <th>Identifiant_fournisseur</th>
+                    <th>Libelle</th>
+                    <th>Date</th>
                     <th>Options</th>
                 </tr>
                 </thead>
@@ -240,15 +235,11 @@ include ("../connexion.php");
                 <tbody>
                 <?php foreach ($result as $row) { ?>
                     <tr>
-                        <td><?php echo $row['id_article']; ?></td>
-                        <td><?php echo $row['nom_article']; ?></td>
-                        <td><?php echo $row['parution']; ?></td>
-                        <td><?php echo $row['stock']; ?></td>
-                        <td><?php echo $row['prix_achat_HT']; ?></td>
-                        <td><?php echo $row['prix_vente_HT']; ?></td>
-                        <td><?php echo $row['libelle']; ?></td>
-                        <td><?php echo $row['taux_commission']; ?></td>
-                        <td><?php echo $row['tva']; ?></td>
+                        <td><?php echo $row['id_commande']; ?></td>
+                        <td><?php echo $row['id_fournisseur']; ?></td>
+                        <td><?php echo $row['libelle_commande']; ?></td>
+                        <td><?php echo $row['date_commande']; ?></td>
+            
                         <td>
                             <p data-placement="top" data-toggle="tooltip" title="Edit">
                                 <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
