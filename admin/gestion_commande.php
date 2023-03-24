@@ -279,16 +279,19 @@ include ("../connexion.php");
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Tiger Nixon">
+                    <input class="form-control " type="text" placeholder="Id">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Nom Fournisseur">
                 </div>
                 <div class="form-group">
 
-                    <input class="form-control " type="text" placeholder="System Architect">
+                    <input class="form-control " type="text" placeholder="Libelle Commande">
                 </div>
                 <div class="form-group">
 
 
-                    <input class="form-control " type="text" placeholder="Edinburgh">
+                    <input class="form-control " type="text" placeholder="Date commande">
 
                 </div>
             </div>

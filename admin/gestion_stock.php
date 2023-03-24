@@ -288,17 +288,38 @@ include ("../connexion.php");
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Tiger Nixon">
+                    <input class="form-control " type="text" placeholder="Id">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Nom Article">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Parution">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="number" placeholder="Stock">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="number" placeholder="Prix achat  HT">
                 </div>
                 <div class="form-group">
 
-                    <input class="form-control " type="text" placeholder="System Architect">
+                    <input class="form-control " type="number" placeholder="Prix vente HT">
                 </div>
+
                 <div class="form-group">
 
 
-                    <input class="form-control " type="text" placeholder="Edinburgh">
+                    <input class="form-control " type="text" placeholder="Libelle">
 
+                </div>
+                <div class="form-group">
+
+                    <input class="form-control " type="number" placeholder="Taux commission">
+                </div>
+                <div class="form-group">
+
+                    <input class="form-control " type="number" placeholder="TVA">
                 </div>
             </div>
             <div class="modal-footer ">

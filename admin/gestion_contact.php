@@ -292,18 +292,37 @@ include ("../connexion.php");
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Tiger Nixon">
+                    <input class="form-control " type="text" placeholder="Id">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Nom fournisseur>
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Numéro voie">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Nom voie">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Code postal">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Ville">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Téléphone">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Pays">
                 </div>
                 <div class="form-group">
 
-                    <input class="form-control " type="text" placeholder="System Architect">
+                    <input class="form-control " type="text" placeholder="Tva fournisseur">
                 </div>
-                <div class="form-group">
-
-
-                    <input class="form-control " type="text" placeholder="Edinburgh">
-
-                </div>
+                
             </div>
             <div class="modal-footer ">
                 <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
