@@ -219,7 +219,7 @@ include ("../connexion.php");
             $req = $bdd->prepare($sql);
             $req->execute();
             $result = $req->fetchAll();
-           
+//            var_dump($result);
             ?>
             <table id="datatable" class="table table-striped table-bordered">
                 <thead>
@@ -236,9 +236,9 @@ include ("../connexion.php");
                 <?php foreach ($result as $row) { ?>
                     <tr>
                         <td><?php echo $row['id_commande']; ?></td>
-                        <td><?php echo $row['id_fournisseur']; ?></td>
+                        <td><?php echo $row['nom_fournisseur']; ?></td>
                         <td><?php echo $row['libelle_commande']; ?></td>
-                        <td><?php echo $row['date_commande']; ?></td>
+                        <td><?php echo $row['date_commante']; ?></td>
             
                         <td>
                             <p data-placement="top" data-toggle="tooltip" title="Edit">
