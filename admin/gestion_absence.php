@@ -194,141 +194,51 @@ include ("../connexion.php");
     </div>
 
 </nav>
-<div class="container-fluid" id="main">
-    <div class="row row-offcanvas row-offcanvas-left" style="margin-top: 78px;">
-        <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
-            <ul class="nav flex-column pl-1">
-                <li class="nav-item"><a class="nav-link" href="gestion_stock.php">Gestion stock</a></li>
-                <li class="nav-item"><a class="nav-link" href="gestion_commande.php">Gestion commande</a></li>
-                <li class="nav-item"><a class="nav-link" href="gestion_vente.php">Gestion vente</a></li>
-                <li class="nav-item"><a class="nav-link" href="gestion_contact.php">Gestion contact</a></li>
-                <li class="nav-item active"><a class="nav-link active" href="gestion_absence.php">Gestion absence</a></li>
-
-            </ul>
-        </div>
-        <!--/col-->
-
-        <div class="col-md-9 col-lg-10 main">
-            <h1 class="display-4 d-none d-sm-block">
-                Gestion Absence
-            </h1>
-            <p class="lead d-none d-sm-block">Gestion des absence</p>
-            <?php
-            $bdd = connectgestion_kiosque();
-            $sql = "SELECT * FROM article";
-            $req = $bdd->prepare($sql);
-            $req->execute();
-            $result = $req->fetchAll();
-            ?>
-            <table id="datatable" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nom article</th>
-                    <th>Parution</th>
-                    <th>Stock</th>
-                    <th>Prix achat HT</th>
-                    <th>Prix vente HT</th>
-                    <th>libelle</th>
-                    <th>Taux commission</th>
-                    <th>Tva</th>
-                    <th>Options</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <?php foreach ($result as $row) { ?>
-                    <tr>
-                        <td><?php echo $row['id_article']; ?></td>
-                        <td><?php echo $row['nom_article']; ?></td>
-                        <td><?php echo $row['parution']; ?></td>
-                        <td><?php echo $row['stock']; ?></td>
-                        <td><?php echo $row['prix_achat_HT']; ?></td>
-                        <td><?php echo $row['prix_vente_HT']; ?></td>
-                        <td><?php echo $row['libelle']; ?></td>
-                        <td><?php echo $row['taux_commission']; ?></td>
-                        <td><?php echo $row['tva']; ?></td>
-                        <td>
-                            <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-                            </p>
-                            <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </p>
-                        </td>
-                    </tr>
-                <?php } ?>
-                </tbody>
-            </table>
-        </div>
-
+<!-- Section principale -->
+<div class="container-fluid">
+  <div class="row" style="height:750px;">
+  <div class="col-md-4 maps" >
+         <!--<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11880.492291371422!2d12.4922309!3d41.8902102!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28f1c82e908503c4!2sColosseo!5e0!3m2!1sit!2sit!4v1524815927977" frameborder="0" style="border:0" allowfullscreen></iframe>-->
+      </div>
+      <div class="col-md-4">
+        <h3 class="text-uppercase mt-3 font-weight-bold">Créer mon mot d'absence</h3>
+        <h5>
+         Indisponible!? je crée mon mot d'absence
+        </h5>
+        <form action="">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <input type="email" class="form-control mt-2" placeholder="Email" required>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <input type="text" class="form-control mt-2" placeholder="motif" required>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <input type="date" class="form-control mt-2" placeholder="Date depart" required>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <input type="date" class="form-control mt-2" placeholder="Retour" required>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="votre message ici ..." rows="3" required></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-light" type="submit">Envoyer</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-    <!--/main col-->
-</div>
-
-</div>
-<!--/.container-->
-<footer class="container-fluid">
-    <p class="text-right small">©2016-2017 Company</p>
-</footer>
-
-
-<!--  modal  -->
-<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title custom_align" id="Heading">Edit Your Detail</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Tiger Nixon">
-                </div>
-                <div class="form-group">
-
-                    <input class="form-control " type="text" placeholder="System Architect">
-                </div>
-                <div class="form-group">
-
-
-                    <input class="form-control " type="text" placeholder="Edinburgh">
-
-                </div>
-            </div>
-            <div class="modal-footer ">
-                <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-
-<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title custom_align" id="Heading">Delete this entry</h4>
-            </div>
-            <div class="modal-body">
-
-                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this Record?</div>
-
-            </div>
-            <div class="modal-footer ">
-                <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
 </div>
 
 </body>
