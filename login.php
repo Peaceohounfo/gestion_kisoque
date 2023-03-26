@@ -65,13 +65,16 @@
     </div>
   </nav>
 
-  <!-- Section login -->
+  
   <div id="login">
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="" method="post">
+                        <form id="login-form" class="form" action="admin/gestion_stock.php" method="post">
+                        <?php  if(isset($errorMessage)) {
+                        echo ("<p>" . $errorMessage . "</p>"); } ?>
+
                             <div class="form-group">
                                 <label for="username" class="text-info">Nom d'utilisateur:</label><br>
                                 <input type="text" name="username" id="username" class="form-control">
@@ -90,4 +93,21 @@
         </div>
     </div>
 </body>
+
+<!-- Section login -->
+<?php include_once 'connexion.php' ;
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    foreach ($users as $user) { // Validation du formulaire
+        if ( $user['username'] === $_POST['username'] &&
+             $user['password'] === $_POST['password'] ) {
+             $loggedUser = ['username' => $user['username']]; }
+        else { $errorMessage = 'Informations de connexion incorrectes' ; }
+    }
+} ?>     <!-- utilisateur non identifié : affichage du formulaire -->
+<?php
+    if(!isset($loggedUser)) { ?>
+
+<?php } else {
+       echo '<a href="gestion_commande.php"> ';
+   } ?>
 </html>
