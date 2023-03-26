@@ -209,10 +209,13 @@ include ("../connexion.php");
         <!--/col-->
 
         <div class="col-md-9 col-lg-10 main">
-            <h1 class="display-4 d-none d-sm-block">
-                Gestion vente
+        <h1 class="display-4 d-none d-sm-block" style="text-align: center;">
+                Gestion stock
             </h1>
-            <p class="lead d-none d-sm-block">Gestion des ventes</p>
+            <p>
+                <button type="button" id="addVente" class="btn btn-primary btn-lg" style="width: 20%;"> Ajouter </button>
+            <p>
+            
             <?php
             $bdd = connectgestion_kiosque();
             $sql = "SELECT * FROM article";

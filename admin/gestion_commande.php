@@ -209,10 +209,13 @@ include ("../connexion.php");
         <!--/col-->
 
         <div class="col-md-9 col-lg-10 main">
-            <h1 class="display-4 d-none d-sm-block">
-                Gestion commande
+             <h1 class="display-4 d-none d-sm-block" style="text-align: center;">
+                Gestion stock
             </h1>
-           
+            <p>
+                <button type="button" id="addCommande" class="btn btn-primary btn-lg" style="width: 20%;"> Ajouter </button>
+            </p>
+            
             <?php
             $bdd = connectgestion_kiosque();
             $sql = "SELECT commande.*, fournisseur.nom_fournisseur FROM `commande` LEFT JOIN fournisseur on fournisseur.id_fournisseur = commande.id_fournisseur";
@@ -274,6 +277,41 @@ include ("../connexion.php");
     <p class="text-right small">©2016-2017 Company</p>
 </footer>
 
+<!--  modal  -->
+<div class="modal fade" id="addCommande" tabindex="-1" role="dialog" aria-labelledby="addCommande" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title custom_align" id="Heading">Add article</h4>
+            </div>
+            <div class="modal-body">
+                <input class="form-control" type="hidden" placeholder="Id" value="" id="id_commande">
+                <div class="form-group">
+                    <select class="form-control" style="height: 32px" id="nom_fournisseur">
+                        <?php foreach ($fournisseur as $row) { ?>
+                            <option value="<?php echo $row['id_fournisseur']; ?>" data-nom="<?php echo $row['nom_fournisseur']; ?>" ><?php echo $row['nom_fournisseur']; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Libelle Commande" id="libelle_commande">
+                </div>
+                <div class="form-group">
+
+
+                    <input class="form-control " type="text" placeholder="Date commande" id="date_commante">
+
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-prymary btn-lg" id="addCommande" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Add</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 <!--  modal  -->
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">

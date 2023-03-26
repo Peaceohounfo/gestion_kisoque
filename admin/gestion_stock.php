@@ -210,10 +210,12 @@ include ("../connexion.php");
         <!--/col-->
 
         <div class="col-md-9 col-lg-10 main">
-            <h1 class="display-4 d-none d-sm-block">
+            <h1 class="display-4 d-none d-sm-block" style="text-align: center;">
                 Gestion stock
             </h1>
-            <p class="lead d-none d-sm-block">Gestion des stocks</p>
+            <p>
+                <button type="button" id="addRecord" class="btn btn-primary btn-lg" style="width: 20%;"> Ajouter </button>
+            <p>
             <?php
             $bdd = connectgestion_kiosque();
             $sql = "SELECT * FROM article";
@@ -281,6 +283,52 @@ include ("../connexion.php");
     <p class="text-right small">©2016-2017 Company</p>
 </footer>
 
+<!--  modal  -->
+<div class="modal fade" id="addRecord" tabindex="-1" role="dialog" aria-labelledby="addRecord" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title custom_align" id="Heading">Add article</h4>
+            </div>
+            <div class="modal-body">
+                <input class="form-control " type="hidden" placeholder="Id" id="id_article">
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Nom Article" id="nom_article">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Parution" id="parution">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="number" placeholder="Stock" id="stock">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="number" placeholder="Prix achat  HT" id="prix_achat_HT">
+                </div>
+                <div class="form-group">
+                    <input class="form-control " type="number" placeholder="Prix vente HT" id="prix_vente_HT">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control " type="text" placeholder="Libelle" id="libelle">
+                </div>
+                <div class="form-group">
+
+                    <input class="form-control " type="number" placeholder="Taux commission" id="taux_commission">
+                </div>
+                <div class="form-group">
+
+                    <input class="form-control " type="number" placeholder="TVA" id="tva">
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" id="addRecord" class="btn btn-primary btn-lg" style="width: 100%;"> Add article</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 <!--  modal  -->
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
