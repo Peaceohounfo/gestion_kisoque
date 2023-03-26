@@ -22,6 +22,13 @@ include ("../connexion.php");
 
 
     <style type="text/css">
+        .btn-add{
+            width: 20%;
+            position: absolute;
+            top: 0;
+            right: 23px;
+        }
+
         .nav-link.active{
             color: #fff !important;
         }
@@ -215,7 +222,7 @@ include ("../connexion.php");
                 Gestion stock
             </h1>
             <p>
-                <button type="button" id="addRecord" class="btn btn-primary btn-lg" style="width: 20%;"> Ajouter </button>
+                <button type="button" class="btn btn-primary btn-lg btn-add" style="width: 20%;"  data-title="Add" data-toggle="modal" data-target="#add"> Ajouter </button>
             <p>
             
            
@@ -246,25 +253,31 @@ include ("../connexion.php");
 
                 <tbody>
                 <?php foreach ($result as $row) { ?>
-                    <tr>
+                    <tr id="tr_<?php echo $row['id_fournisseur']; ?>">
                         <td><?php echo $row['id_fournisseur']; ?></td>
-                        <td><?php echo $row['nom_fournisseur']; ?></td>
-                        <td><?php echo $row['num_voie']; ?></td>
-                        <td><?php echo $row['nom_voie']; ?></td>
-                        <td><?php echo $row['code_postale']; ?></td>
-                        <td><?php echo $row['ville']; ?></td>
-                        <td><?php echo $row['email']; ?></td>
-                        <td><?php echo $row['telephone']; ?></td>
-                        <td><?php echo $row['pays_fournisseur']; ?></td>
-                        <td><?php echo $row['TVA_fournisseur']; ?></td>
+                        <td id="nom_fournisseur_<?php echo $row['id_fournisseur']; ?>"><?php echo $row['nom_fournisseur']; ?></td>
+                        <td id="num_voie_<?php echo $row['id_fournisseur']; ?>"><?php echo $row['num_voie']; ?></td>
+                        <td id="nom_voie_<?php echo $row['id_fournisseur']; ?>"><?php echo $row['nom_voie']; ?></td>
+                        <td id="code_postale_<?php echo $row['id_fournisseur']; ?>"><?php echo $row['code_postale']; ?></td>
+                        <td id="ville_<?php echo $row['id_fournisseur']; ?>"><?php echo $row['ville']; ?></td>
+                        <td id="email_<?php echo $row['id_fournisseur']; ?>"><?php echo $row['email']; ?></td>
+                        <td id="telephone_<?php echo $row['id_fournisseur']; ?>"><?php echo $row['telephone']; ?></td>
+                        <td id="pays_fournisseur_<?php echo $row['id_fournisseur']; ?>"><?php echo $row['pays_fournisseur']; ?></td>
+                        <td id="TVA_fournisseur_<?php echo $row['id_fournisseur']; ?>"><?php echo $row['TVA_fournisseur']; ?></td>
                         <td>
                             <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
+                                <button class="btn btn-primary btn-xs edit-btn"
+                                        data-id_fournisseur="<?php echo $row['id_fournisseur']; ?>" data-nom_fournisseur="<?php echo $row['nom_fournisseur']; ?>"
+                                        data-num_voie="<?php echo $row['num_voie']; ?>" data-nom_voie="<?php echo $row['nom_voie']; ?>"
+                                        data-code_postale="<?php echo $row['code_postale']; ?>" data-ville="<?php echo $row['ville']; ?>"
+                                        data-email="<?php echo $row['email']; ?>" data-telephone="<?php echo $row['telephone']; ?>"
+                                        data-pays_fournisseur="<?php echo $row['pays_fournisseur']; ?>" data-TVA_fournisseur="<?php echo $row['TVA_fournisseur']; ?>"
+                                        data-title="Edit" data-toggle="modal" data-target="#edit" >
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
                             </p>
                             <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+                                <button class="btn btn-danger btn-xs delete-btn" data-title="Delete" data-id="<?php echo $row['id_fournisseur']; ?>" data-toggle="modal" data-target="#delete" >
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>
                             </p>
@@ -295,42 +308,88 @@ include ("../connexion.php");
                 <h4 class="modal-title custom_align" id="Heading">Edit Your Detail</h4>
             </div>
             <div class="modal-body">
+                <input class="form-control " type="hidden" placeholder="Id" id="id_fournisseur">
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Id">
+                    <input class="form-control " type="text" placeholder="Nom fournisseur"  id="nom_fournisseur">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Nom fournisseur>
+                    <input class="form-control " type="text" placeholder="Numéro voie"  id="num_voie">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Numéro voie">
+                    <input class="form-control " type="text" placeholder="Nom voie"  id="nom_voie">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Nom voie">
+                    <input class="form-control " type="text" placeholder="Code postal"  id="code_postale">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Code postal">
+                    <input class="form-control " type="text" placeholder="Ville"  id="ville">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Ville">
+                    <input class="form-control " type="text" placeholder="Email"  id="email">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Email">
+                    <input class="form-control " type="text" placeholder="Téléphone"  id="telephone">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Téléphone">
+                    <input class="form-control " type="text" placeholder="Pays"  id="pays_fournisseur">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Pays">
+                    <input class="form-control " type="text" placeholder="Tva fournisseur" id="TVA_fournisseur">
                 </div>
-                <div class="form-group">
 
-                    <input class="form-control " type="text" placeholder="Tva fournisseur">
-                </div>
-                
             </div>
             <div class="modal-footer ">
-                <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+                <button type="button" class="btn btn-warning btn-lg" id="updateRecord" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
             </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="add">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title custom_align" id="Heading">Add Contact</h4>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control " type="hidden" placeholder="Id" name="id_fournisseur">
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Nom fournisseur"  name="nom_fournisseur">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Numéro voie"  name="num_voie">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Nom voie"  name="nom_voie">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Code postal"  name="code_postale">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Ville"  name="ville">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Email"  name="email">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Téléphone"  name="telephone">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Pays"  name="pays_fournisseur">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Tva fournisseur" name="TVA_fournisseur">
+                    </div>
+
+                </div>
+                <div class="modal-footer ">
+                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Add</button>
+                </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -350,7 +409,7 @@ include ("../connexion.php");
 
             </div>
             <div class="modal-footer ">
-                <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                <button type="button" class="btn btn-success" id="deleteRecord" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
             </div>
         </div>
@@ -434,6 +493,112 @@ include ("../connexion.php");
     $(document).ready(function() {
         $("[data-toggle=offcanvas]").click(function() {
             $(".row-offcanvas").toggleClass("active");
+        });
+    });
+</script>
+
+<script>
+    // on document ready, onclieck .delete-btn get data-id on this and set data-id on #deleteRecord
+    $(document).ready(function() {
+        $('.delete-btn').on('click', function() {
+            var id = $(this).data('id');
+            console.log(id);
+            $('#deleteRecord').attr('data-id', id);
+        });
+
+        // on click #deleteRecord get data-id on this and send ajax request
+        $('#deleteRecord').on('click', function() {
+            var id = $(this).data('id');
+            $.ajax({
+                url: './../controller/contactController.php',
+                type: 'POST',
+                data: {id: id, operation:"delete"},
+                success: function(data) {
+                    alert("Record deleted successfully");
+                    console.log(data);
+                    $('#tr_' + id).remove();
+                    $('#delete').modal('toggle');
+                }
+            });
+        });
+
+        $('.edit-btn').on('click', function() {
+            var id_fournisseur = $(this).data('id_fournisseur');
+            var nom_fournisseur = $(this).data('nom_fournisseur');
+            var num_voie = $(this).data('num_voie');
+            var nom_voie = $(this).data('nom_voie');
+            var code_postal = $(this).data('code_postal');
+            var ville = $(this).data('ville');
+            var pays_fournisseur = $(this).data('pays_fournisseur');
+            var telephone = $(this).data('telephone');
+            var pays_fournisseur = $(this).data('pays_fournisseur');
+            var TVA_fournisseur = $(this).data('tVA_fournisseur');
+
+            $('#id_fournisseur').val(id_fournisseur);
+            $('#nom_fournisseur').val(nom_fournisseur);
+            $('#num_voie').val(num_voie);
+            $('#nom_voie').val(nom_voie);
+            $('#code_postal').val(code_postal);
+            $('#ville').val(ville);
+            $('#pays_fournisseur').val(pays_fournisseur);
+            $('#telephone').val(telephone);
+            $('#pays_fournisseur').val(pays_fournisseur);
+            $('#TVA_fournisseur').val(TVA_fournisseur);
+        });
+
+        $('#updateRecord').on('click', function() {
+            var id_fournisseur = $('#id_fournisseur').val();
+            var nom_fournisseur = $('#nom_fournisseur').val();
+            var num_voie = $('#num_voie').val();
+            var nom_voie = $('#nom_voie').val();
+            var code_postal = $('#code_postal').val();
+            var ville = $('#ville').val();
+            var pays_fournisseur = $('#pays_fournisseur').val();
+            var telephone = $('#telephone').val();
+            var TVA_fournisseur = $('#TVA_fournisseur').val();
+
+            $.ajax({
+                url: './../controller/contactController.php',
+                type: 'POST',
+                data: {id_fournisseur: id_fournisseur, nom_fournisseur: nom_fournisseur, num_voie: num_voie, nom_voie: nom_voie, code_postal: code_postal, ville: ville, pays_fournisseur: pays_fournisseur, telephone: telephone, TVA_fournisseur: TVA_fournisseur, operation:"update"},
+                success: function(data) {
+                    console.log(data);
+                    alert("Record updated successfully");
+                    $("#nom_fournisseur_"+id_fournisseur).html(nom_fournisseur);
+                    $("#num_voie_"+id_fournisseur).html(num_voie);
+                    $("#nom_voie_"+id_fournisseur).html(nom_voie);
+                    $("#code_postal_"+id_fournisseur).html(code_postal);
+                    $("#ville_"+id_fournisseur).html(ville);
+                    $("#pays_fournisseur_"+id_fournisseur).html(pays_fournisseur);
+                    $("#telephone_"+id_fournisseur).html(telephone);
+                    $("#TVA_fournisseur_"+id_fournisseur).html(TVA_fournisseur);
+                    $('#edit').modal('toggle');
+                }
+            });
+        });
+
+        $('#add').on("submit", function(e) {
+            e.preventDefault();
+            var nom_fournisseur = $("input[name=nom_fournisseur]").val();
+            var num_voie = $("input[name=num_voie]").val();
+            var nom_voie = $("input[name=nom_voie]").val();
+            var code_postal = $("input[name=code_postal]").val();
+            var ville = $("input[name=ville]").val();
+            var pays_fournisseur = $("input[name=pays_fournisseur]").val();
+            var telephone = $("input[name=telephone]").val();
+            var TVA_fournisseur = $("input[name=TVA_fournisseur]").val();
+
+            $.ajax({
+                url: './../controller/contactController.php',
+                type: 'POST',
+                data: {nom_fournisseur: nom_fournisseur, num_voie: num_voie, nom_voie: nom_voie, code_postal: code_postal, ville: ville, pays_fournisseur: pays_fournisseur, telephone: telephone, TVA_fournisseur: TVA_fournisseur, operation:"add"},
+                success: function(data) {
+                    console.log(data);
+                    alert('Record added successfully')
+                    $('#add').modal('toggle');
+                    location.reload();
+                }
+            });
         });
     });
 </script>

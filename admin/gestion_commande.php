@@ -22,6 +22,13 @@ include ("../connexion.php");
 
 
     <style type="text/css">
+        .btn-add{
+            width: 20%;
+            position: absolute;
+            top: 0;
+            right: 23px;
+        }
+
         .nav-link.active{
             color: #fff !important;
         }
@@ -212,10 +219,8 @@ include ("../connexion.php");
              <h1 class="display-4 d-none d-sm-block" style="text-align: center;">
                 Gestion stock
             </h1>
-            <p>
-                <button type="button" id="addCommande" class="btn btn-primary btn-lg" style="width: 20%;"> Ajouter </button>
-            </p>
-            
+            <button type="button" class="btn btn-primary btn-lg  btn-add" style="width: 20%;" data-title="Add" data-toggle="modal" data-target="#add"> Ajouter </button>
+
             <?php
             $bdd = connectgestion_kiosque();
             $sql = "SELECT commande.*, fournisseur.nom_fournisseur FROM `commande` LEFT JOIN fournisseur on fournisseur.id_fournisseur = commande.id_fournisseur";
@@ -278,35 +283,36 @@ include ("../connexion.php");
 </footer>
 
 <!--  modal  -->
-<div class="modal fade" id="addCommande" tabindex="-1" role="dialog" aria-labelledby="addCommande" aria-hidden="true">
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="addCommande" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title custom_align" id="Heading">Add article</h4>
-            </div>
-            <div class="modal-body">
-                <input class="form-control" type="hidden" placeholder="Id" value="" id="id_commande">
-                <div class="form-group">
-                    <select class="form-control" style="height: 32px" id="nom_fournisseur">
-                        <?php foreach ($fournisseur as $row) { ?>
-                            <option value="<?php echo $row['id_fournisseur']; ?>" data-nom="<?php echo $row['nom_fournisseur']; ?>" ><?php echo $row['nom_fournisseur']; ?></option>
-                        <?php } ?>
-                    </select>
+            <form method="post" id="add">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title custom_align" id="Heading">Add article</h4>
                 </div>
-                <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Libelle Commande" id="libelle_commande">
-                </div>
-                <div class="form-group">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <select class="form-control" style="height: 32px" name="nom_fournisseur">
+                            <?php foreach ($fournisseur as $row) { ?>
+                                <option value="<?php echo $row['id_fournisseur']; ?>" data-nom="<?php echo $row['nom_fournisseur']; ?>" ><?php echo $row['nom_fournisseur']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Libelle Commande" name="libelle_commande">
+                    </div>
+                    <div class="form-group">
 
 
-                    <input class="form-control " type="text" placeholder="Date commande" id="date_commante">
+                        <input class="form-control " type="text" placeholder="Date commande" name="date_commante">
 
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer ">
-                <button type="button" class="btn btn-prymary btn-lg" id="addCommande" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Add</button>
-            </div>
+                <div class="modal-footer ">
+                    <button type="submit" class="btn btn-primary btn-lg" id="addCommande" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Add</button>
+                </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -502,6 +508,25 @@ include ("../connexion.php");
                     $("#libelle_commande_"+id_commande).html(libelle_commande);
                     $("#nom_fournisseur_"+id_commande).html($("#nom_fournisseur option:selected").text());
                     $('#edit').modal('toggle');
+                }
+            });
+        });
+
+        $('#add').on("submit", function(e) {
+            e.preventDefault();
+            var libelle_commande = $("input[name=libelle_commande]").val();
+            var date_commante = $("input[name=date_commante]").val();
+            var id_fournisseur = $("#nom_fournisseur").val();
+
+            $.ajax({
+                url: './../controller/commandeController.php',
+                type: 'POST',
+                data: {libelle_commande: libelle_commande, date_commante: date_commante, id_fournisseur: id_fournisseur, operation:"add"},
+                success: function(data) {
+                    console.log(data);
+                    alert('Record added successfully')
+                    $('#add').modal('toggle');
+                    location.reload();
                 }
             });
         });

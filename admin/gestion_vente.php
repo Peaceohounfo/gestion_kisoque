@@ -22,6 +22,13 @@ include ("../connexion.php");
 
 
     <style type="text/css">
+        .btn-add{
+            width: 20%;
+            position: absolute;
+            top: 0;
+            right: 23px;
+        }
+
         .nav-link.active{
             color: #fff !important;
         }
@@ -212,10 +219,8 @@ include ("../connexion.php");
         <h1 class="display-4 d-none d-sm-block" style="text-align: center;">
                 Gestion stock
             </h1>
-            <p>
-                <button type="button" id="addVente" class="btn btn-primary btn-lg" style="width: 20%;"> Ajouter </button>
-            <p>
-            
+            <button type="button" class="btn btn-primary btn-lg  btn-add" style="width: 20%;"  data-title="Add" data-toggle="modal" data-target="#add"> Ajouter </button>
+
             <?php
             $bdd = connectgestion_kiosque();
             $sql = "SELECT * FROM article";
@@ -281,6 +286,39 @@ include ("../connexion.php");
 
 
 <!--  modal  -->
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="add">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title custom_align" id="Heading">Add a sale</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Tiger Nixon">
+                    </div>
+                    <div class="form-group">
+
+                        <input class="form-control " type="text" placeholder="System Architect">
+                    </div>
+                    <div class="form-group">
+
+
+                        <input class="form-control " type="text" placeholder="Edinburgh">
+
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Add</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

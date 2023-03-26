@@ -27,7 +27,7 @@ if (isset($_POST)) {
             $updateCommande->execute(['id' => $id_article, 'stock' => $stock, 'libelle' => $libelle, 'prix_achat_HT' => $prix_achat_HT, 'prix_vente_HT' => $prix_vente_HT, 'nom_article' => $nom_article, 'tva' => $tva, 'taux_commission' => $taux_commission, 'parution' => $parution]);
             echo ("<h6>Modification effectuée</h6>");
             break;
-        case 'insert':
+        case 'add':
             $libelle = $_POST['libelle'];
             $prix_achat_HT = $_POST['prix_achat_HT'];
             $prix_vente_HT = $_POST['prix_vente_HT'];
@@ -36,9 +36,9 @@ if (isset($_POST)) {
             $taux_commission = $_POST['taux_commission'];
             $parution = $_POST['parution'];
             $stock = $_POST['stock'];
-            $reqSQL = 'INSERT INTO article (libelle, prix_achat_HT, prix_vente_HT, nom_article, tva, taux_commission, parution) VALUES (:libelle, :prix_achat_HT, :prix_vente_HT, :nom_article, :tva, :taux_commission, :parution)';
+            $reqSQL = 'INSERT INTO article (libelle, prix_achat_HT, prix_vente_HT, nom_article, tva, taux_commission, parution, stock) VALUES  (:libelle, :prix_achat_HT, :prix_vente_HT, :nom_article, :tva, :taux_commission, :parution, :stock)';
             $insertCommande = $bdd->prepare($reqSQL);
-            $insertCommande->execute(['libelle' => $libelle, 'stock' => $stock, 'prix_achat_HT' => $prix_achat_HT, 'prix_vente_HT' => $prix_vente_HT, 'nom_article' => $nom_article, 'tva' => $tva, 'taux_commission' => $taux_commission, 'parution' => $parution]);
+            $insertCommande->execute(['libelle' => $libelle,'stock' => $stock, 'prix_achat_HT' => $prix_achat_HT, 'prix_vente_HT' => $prix_vente_HT, 'nom_article' => $nom_article, 'tva' => $tva, 'taux_commission' => $taux_commission, 'parution' => $parution]);
             echo ("<h6>Ajout effectué</h6>");
             break;
         default:

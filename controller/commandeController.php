@@ -22,7 +22,7 @@ if (isset($_POST)) {
             $updateCommande->execute(['id' => $id_commande, 'libelle_commande' => $libelle_commande, 'date_commante' => $date_commante, 'id_fournisseur' => $id_fournisseur]);
             echo ("<h6>Modification effectuée</h6>");
             break;
-        case 'insert':
+        case 'add':
             $libelle_commande = $_POST['libelle_commande'];
             $date_commante = $_POST['date_commante'];
             $id_fournisseur = $_POST['id_fournisseur'];

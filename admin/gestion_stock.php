@@ -22,6 +22,13 @@ include ("../connexion.php");
 
 
     <style type="text/css">
+        .btn-add{
+            width: 20%;
+            position: absolute;
+            top: 0;
+            right: 23px;
+        }
+
         .nav-link.active{
             color: #fff !important;
         }
@@ -213,9 +220,7 @@ include ("../connexion.php");
             <h1 class="display-4 d-none d-sm-block" style="text-align: center;">
                 Gestion stock
             </h1>
-            <p>
-                <button type="button" id="addRecord" class="btn btn-primary btn-lg" style="width: 20%;"> Ajouter </button>
-            <p>
+            <button type="button" class="btn btn-primary btn-lg btn-add" style="width: 20%;"  data-title="Add" data-toggle="modal" data-target="#add"> Ajouter </button>
             <?php
             $bdd = connectgestion_kiosque();
             $sql = "SELECT * FROM article";
@@ -284,46 +289,47 @@ include ("../connexion.php");
 </footer>
 
 <!--  modal  -->
-<div class="modal fade" id="addRecord" tabindex="-1" role="dialog" aria-labelledby="addRecord" aria-hidden="true">
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="addRecord" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title custom_align" id="Heading">Add article</h4>
-            </div>
-            <div class="modal-body">
-                <input class="form-control " type="hidden" placeholder="Id" id="id_article">
-                <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Nom Article" id="nom_article">
+            <form method="post" id="add">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title custom_align" id="Heading">Add article</h4>
                 </div>
-                <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Parution" id="parution">
-                </div>
-                <div class="form-group">
-                    <input class="form-control " type="number" placeholder="Stock" id="stock">
-                </div>
-                <div class="form-group">
-                    <input class="form-control " type="number" placeholder="Prix achat  HT" id="prix_achat_HT">
-                </div>
-                <div class="form-group">
-                    <input class="form-control " type="number" placeholder="Prix vente HT" id="prix_vente_HT">
-                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Nom Article" name="nom_article">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Parution" name="parution">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="number" placeholder="Stock" name="stock">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="number" placeholder="Prix achat  HT" name="prix_achat_HT">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " type="number" placeholder="Prix vente HT" name="prix_vente_HT">
+                    </div>
 
-                <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Libelle" id="libelle">
-                </div>
-                <div class="form-group">
+                    <div class="form-group">
+                        <input class="form-control " type="text" placeholder="Libelle" name="libelle">
+                    </div>
+                    <div class="form-group">
 
-                    <input class="form-control " type="number" placeholder="Taux commission" id="taux_commission">
-                </div>
-                <div class="form-group">
+                        <input class="form-control " type="number" placeholder="Taux commission" name="taux_commission">
+                    </div>
+                    <div class="form-group">
 
-                    <input class="form-control " type="number" placeholder="TVA" id="tva">
+                        <input class="form-control " type="number" placeholder="TVA" name="tva">
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer ">
-                <button type="button" id="addRecord" class="btn btn-primary btn-lg" style="width: 100%;"> Add article</button>
-            </div>
+                <div class="modal-footer ">
+                    <button type="submit" id="addRecord" class="btn btn-primary btn-lg" style="width: 100%;"> Add</button>
+                </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -553,6 +559,31 @@ include ("../connexion.php");
                     $("#taux_commission_" + id_article).html(taux_commission);
                     $("#parution_" + id_article).html(parution);
                     $('#edit').modal('toggle');
+                }
+            });
+        });
+
+        $('#add').on("submit", function(e) {
+            e.preventDefault();
+            var libelle = $('input[name=libelle]').val();
+            var prix_achat_HT = $('input[name=prix_achat_HT]').val();
+            var prix_vente_HT = $('input[name=prix_vente_HT]').val();
+            var nom_article = $('input[name=nom_article]').val();
+            var tva = $('input[name=tva]').val();
+            var taux_commission = $('input[name=taux_commission]').val();
+            var parution = $('input[name=parution]').val();
+            var stock = $('input[name=stock]').val();
+
+            $.ajax({
+                url: './../controller/stockController.php',
+                type: 'POST',
+                data: {libelle: libelle, prix_achat_HT: prix_achat_HT, prix_vente_HT: prix_vente_HT, nom_article: nom_article, tva: tva, taux_commission: taux_commission, parution: parution, stock: stock, operation:"add"},
+                success: function(data) {
+                    console.log(data);
+                    alert('Record added successfully')
+                    $('#add').modal('toggle');
+                    // reload the page
+                    location.reload();
                 }
             });
         });

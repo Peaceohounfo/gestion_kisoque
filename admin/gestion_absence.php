@@ -22,6 +22,12 @@ include ("../connexion.php");
 
 
     <style type="text/css">
+        .btn-add{
+            width: 20%;
+            position: absolute;
+            top: 0;
+            right: 23px;
+        }
         .nav-link.active{
             color: #fff !important;
         }
@@ -206,31 +212,31 @@ include ("../connexion.php");
       <div class="col-md-4">
         <h3 class="text-uppercase mt-3 font-weight-bold">Créer mon mot d'absence</h3>
         
-        <form action="">
+        <form action="" id="sendMail">
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
-                <input type="email" class="form-control mt-2" placeholder="Email" required>
+                <input type="email" class="form-control mt-2" placeholder="Email" required name="email">
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group">
-                <input type="text" class="form-control mt-2" placeholder="motif" required>
+                <input type="text" class="form-control mt-2" placeholder="motif" required name="motif">
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group">
-                <input type="date" class="form-control mt-2" placeholder="Date depart" required>
+                <input type="date" class="form-control mt-2" placeholder="Date depart" required name="depart">
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group">
-                <input type="date" class="form-control mt-2" placeholder="Retour" required>
+                <input type="date" class="form-control mt-2" placeholder="Retour" required name="retour">
               </div>
             </div>
             <div class="col-12">
               <div class="form-group">
-                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="votre message ici ..." rows="3" required></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="votre message ici ..." rows="3" required name="message"></textarea>
               </div>
             </div>
             <div class="col-12">
@@ -317,6 +323,38 @@ include ("../connexion.php");
     $(document).ready(function() {
         $("[data-toggle=offcanvas]").click(function() {
             $(".row-offcanvas").toggleClass("active");
+        });
+    });
+</script>
+
+<script>
+    // on document ready, onclieck .delete-btn get data-id on this and set data-id on #deleteRecord
+    $(document).ready(function() {
+        $('#sendMail').on("submit", function(e) {
+            e.preventDefault();
+            var email = $('#sendMail input[name=email]').val();
+            var motif = $('#sendMail input[name=motif]').val();
+            var depart = $('#sendMail input[name=depart]').val();
+            var retour = $('#sendMail input[name=retour]').val();
+            var message = $('#sendMail textarea[name=message]').val();
+
+            $.ajax({
+                url: './../controller/mailController.php',
+                type: 'POST',
+                data: {
+                    email: email,
+                    motif: motif,
+                    depart: depart,
+                    retour: retour,
+                    message: message
+                },
+                success: function(data) {
+                    console.log(data);
+                    alert('Record added successfully')
+                    $('#add').modal('toggle');
+                    location.reload();
+                }
+            });
         });
     });
 </script>
