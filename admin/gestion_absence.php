@@ -53,6 +53,9 @@ include ("../connexion.php");
         body.modal-open {
             padding-right: 0 !important;
         }
+        .container-fluid{
+      margin-top: 100px;
+    }
 
         #sidebar {
             padding-left: 0;
@@ -202,9 +205,7 @@ include ("../connexion.php");
       </div>
       <div class="col-md-4">
         <h3 class="text-uppercase mt-3 font-weight-bold">Créer mon mot d'absence</h3>
-        <h5>
-         Indisponible!? je crée mon mot d'absence
-        </h5>
+        
         <form action="">
           <div class="row">
             <div class="col-lg-6">
