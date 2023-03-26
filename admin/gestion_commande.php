@@ -219,7 +219,11 @@ include ("../connexion.php");
             $req = $bdd->prepare($sql);
             $req->execute();
             $result = $req->fetchAll();
-//            var_dump($result);
+
+            $sql = "SELECT * FROM `fournisseur`";
+            $req = $bdd->prepare($sql);
+            $req->execute();
+            $fournisseur = $req->fetchAll();
             ?>
             <table id="datatable" class="table table-striped table-bordered">
                 <thead>
@@ -234,21 +238,23 @@ include ("../connexion.php");
 
                 <tbody>
                 <?php foreach ($result as $row) { ?>
-                    <tr>
+                    <tr id="tr_<?php echo $row['id_commande']; ?>">
                         <td><?php echo $row['id_commande']; ?></td>
-                        <td><?php echo $row['nom_fournisseur']; ?></td>
-                        <td><?php echo $row['libelle_commande']; ?></td>
-                        <td><?php echo $row['date_commante']; ?></td>
+                        <td id="nom_fournisseur_<?php echo $row['id_commande']; ?>"><?php echo $row['nom_fournisseur']; ?></td>
+                        <td id="libelle_commande_<?php echo $row['id_commande']; ?>"><?php echo $row['libelle_commande']; ?></td>
+                        <td id="date_commante_<?php echo $row['id_commande']; ?>"><?php echo $row['date_commante']; ?></td>
             
                         <td>
                             <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
+                                <button class="btn btn-primary btn-xs edit-btn" data-id_commande="<?php echo $row['id_commande']; ?>" data-nom_fournisseur="<?php echo $row['nom_fournisseur']; ?>"
+                                        data-libelle_commande="<?php echo $row['libelle_commande']; ?>" data-date_commante="<?php echo $row['date_commante']; ?>"
+                                        data-title="Edit" data-toggle="modal" data-target="#edit" >
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
                             </p>
                             <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
-                                    <span class="glyphicon glyphicon-trash"></span>
+                                <button data-id="<?php echo $row['id_commande']; ?>" class="btn btn-danger btn-xs delete-btn" data-title="Delete" data-toggle="modal" data-target="#delete" >
+                                    <span class="glyphicon glyphicon-trash delete-btn"></span>
                                 </button>
                             </p>
                         </td>
@@ -278,25 +284,26 @@ include ("../connexion.php");
                 <h4 class="modal-title custom_align" id="Heading">Edit Your Detail</h4>
             </div>
             <div class="modal-body">
+                <input class="form-control" type="hidden" placeholder="Id" value="" id="id_commande">
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Id">
+                    <select class="form-control" style="height: 32px" id="nom_fournisseur">
+                        <?php foreach ($fournisseur as $row) { ?>
+                            <option value="<?php echo $row['id_fournisseur']; ?>" data-nom="<?php echo $row['nom_fournisseur']; ?>" ><?php echo $row['nom_fournisseur']; ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Nom Fournisseur">
+                    <input class="form-control " type="text" placeholder="Libelle Commande" id="libelle_commande">
                 </div>
                 <div class="form-group">
 
-                    <input class="form-control " type="text" placeholder="Libelle Commande">
-                </div>
-                <div class="form-group">
 
-
-                    <input class="form-control " type="text" placeholder="Date commande">
+                    <input class="form-control " type="text" placeholder="Date commande" id="date_commante">
 
                 </div>
             </div>
             <div class="modal-footer ">
-                <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+                <button type="button" class="btn btn-warning btn-lg" id="updateRecord" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -317,7 +324,7 @@ include ("../connexion.php");
 
             </div>
             <div class="modal-footer ">
-                <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                <button type="button" class="btn btn-success" id="deleteRecord"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
             </div>
         </div>
@@ -327,7 +334,6 @@ include ("../connexion.php");
 </div>
 
 </body>
-
 
 
 <script>
@@ -380,9 +386,9 @@ include ("../connexion.php");
 
 <!--scripts loaded here-->
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 
 <script language="JavaScript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script language="JavaScript" src="https://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
@@ -401,6 +407,65 @@ include ("../connexion.php");
     $(document).ready(function() {
         $("[data-toggle=offcanvas]").click(function() {
             $(".row-offcanvas").toggleClass("active");
+        });
+    });
+</script>
+
+<script>
+    // on document ready, onclieck .delete-btn get data-id on this and set data-id on #deleteRecord
+    $(document).ready(function() {
+        $('.delete-btn').on('click', function() {
+            var id = $(this).data('id');
+            console.log(id);
+            $('#deleteRecord').attr('data-id', id);
+        });
+
+        // on click #deleteRecord get data-id on this and send ajax request
+        $('#deleteRecord').on('click', function() {
+            var id = $(this).data('id');
+            $.ajax({
+                url: './../controller/commandeController.php',
+                type: 'POST',
+                data: {id: id, operation:"delete"},
+                success: function(data) {
+                    alert("Record deleted successfully");
+                    console.log(data);
+                    $('#tr_' + id).remove();
+                    $('#delete').modal('toggle');
+                }
+            });
+        });
+
+        $('.edit-btn').on('click', function() {
+            var id_commande = $(this).data('id_commande');
+            var nom_fournisseur = $(this).data('nom_fournisseur');
+            var libelle_commande = $(this).data('libelle_commande');
+            var date_commante = $(this).data('date_commante');
+
+            $("#id_commande").val(id_commande);
+            $("#libelle_commande").val(libelle_commande);
+            $("#date_commante").val(date_commante);
+            $("#nom_fournisseur option[data-nom='" + nom_fournisseur + "']").attr("selected", "selected");
+        });
+
+        $('#updateRecord').on('click', function() {
+            var id_commande = $("#id_commande").val();
+            var libelle_commande = $("#libelle_commande").val();
+            var date_commante = $("#date_commante").val();
+            var id_fournisseur = $("#nom_fournisseur").val();
+            $.ajax({
+                url: './../controller/commandeController.php',
+                type: 'POST',
+                data: {id_commande: id_commande, libelle_commande: libelle_commande, date_commante: date_commante, id_fournisseur: id_fournisseur, operation:"update"},
+                success: function(data) {
+                    console.log(data);
+                    alert("Record updated successfully");
+                    $("#date_commante_"+id_commande).html(date_commante);
+                    $("#libelle_commande_"+id_commande).html(libelle_commande);
+                    $("#nom_fournisseur_"+id_commande).html($("#nom_fournisseur option:selected").text());
+                    $('#edit').modal('toggle');
+                }
+            });
         });
     });
 </script>

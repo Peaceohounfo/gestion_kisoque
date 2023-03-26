@@ -239,24 +239,28 @@ include ("../connexion.php");
 
                 <tbody>
                 <?php foreach ($result as $row) { ?>
-                    <tr>
-                        <td><?php echo $row['id_article']; ?></td>
-                        <td><?php echo $row['nom_article']; ?></td>
-                        <td><?php echo $row['parution']; ?></td>
-                        <td><?php echo $row['stock']; ?></td>
-                        <td><?php echo $row['prix_achat_HT']; ?></td>
-                        <td><?php echo $row['prix_vente_HT']; ?></td>
-                        <td><?php echo $row['libelle']; ?></td>
-                        <td><?php echo $row['taux_commission']; ?></td>
-                        <td><?php echo $row['tva']; ?></td>
+                    <tr id="tr_<?php echo $row['id_article']; ?>">
+                        <td id="id_article_"<?php echo $row['id_article']; ?>><?php echo $row['id_article']; ?></td>
+                        <td id="nom_article_<?php echo $row['id_article']; ?>"><?php echo $row['nom_article']; ?></td>
+                        <td id="parution_<?php echo $row['id_article']; ?>"><?php echo $row['parution']; ?></td>
+                        <td id="stock_<?php echo $row['id_article']; ?>"><?php echo $row['stock']; ?></td>
+                        <td id="prix_achat_HT_<?php echo $row['id_article']; ?>"><?php echo $row['prix_achat_HT']; ?></td>
+                        <td id="prix_vente_HT<?php echo $row['id_article']; ?>"><?php echo $row['prix_vente_HT']; ?></td>
+                        <td id="libelle_<?php echo $row['id_article']; ?>"><?php echo $row['libelle']; ?></td>
+                        <td id="taux_commission_<?php echo $row['id_article']; ?>"><?php echo $row['taux_commission']; ?></td>
+                        <td id="tva_<?php echo $row['id_article']; ?>"><?php echo $row['tva']; ?></td>
                         <td>
                             <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
+                                <button class="btn btn-primary btn-xs edit-btn" data-title="Edit" data-toggle="modal" data-target="#edit"
+                                        data-id_article="<?php echo $row['id_article']; ?>" data-nom_article="<?php echo $row['nom_article']; ?>"
+                                        data-parution="<?php echo $row['parution']; ?>" data-stock="<?php echo $row['stock']; ?>" data-prix_achat_HT="<?php echo $row['prix_achat_HT']; ?>"
+                                        data-prix_vente_HT="<?php echo $row['prix_vente_HT']; ?>" data-libelle="<?php echo $row['libelle']; ?>"
+                                        data-taux_commission="<?php echo $row['taux_commission']; ?>" data-tva="<?php echo $row['tva']; ?>" >
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
                             </p>
                             <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+                                <button class="btn btn-danger btn-xs delete-btn" data-title="Delete" data-id="<?php echo $row['id_article']; ?>" data-toggle="modal" data-target="#delete" >
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>
                             </p>
@@ -287,43 +291,37 @@ include ("../connexion.php");
                 <h4 class="modal-title custom_align" id="Heading">Edit Your Detail</h4>
             </div>
             <div class="modal-body">
+                <input class="form-control " type="hidden" placeholder="Id" id="id_article">
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Id">
+                    <input class="form-control " type="text" placeholder="Nom Article" id="nom_article">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Nom Article">
+                    <input class="form-control " type="text" placeholder="Parution" id="parution">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Parution">
+                    <input class="form-control " type="number" placeholder="Stock" id="stock">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="number" placeholder="Stock">
+                    <input class="form-control " type="number" placeholder="Prix achat  HT" id="prix_achat_HT">
                 </div>
                 <div class="form-group">
-                    <input class="form-control " type="number" placeholder="Prix achat  HT">
-                </div>
-                <div class="form-group">
-
-                    <input class="form-control " type="number" placeholder="Prix vente HT">
+                    <input class="form-control " type="number" placeholder="Prix vente HT" id="prix_vente_HT">
                 </div>
 
                 <div class="form-group">
-
-
-                    <input class="form-control " type="text" placeholder="Libelle">
-
+                    <input class="form-control " type="text" placeholder="Libelle" id="libelle">
                 </div>
                 <div class="form-group">
 
-                    <input class="form-control " type="number" placeholder="Taux commission">
+                    <input class="form-control " type="number" placeholder="Taux commission" id="taux_commission">
                 </div>
                 <div class="form-group">
 
-                    <input class="form-control " type="number" placeholder="TVA">
+                    <input class="form-control " type="number" placeholder="TVA" id="tva">
                 </div>
             </div>
             <div class="modal-footer ">
-                <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+                <button type="button" id="updateRecord" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -344,7 +342,7 @@ include ("../connexion.php");
 
             </div>
             <div class="modal-footer ">
-                <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                <button type="button" class="btn btn-success" id="deleteRecord"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
             </div>
         </div>
@@ -428,6 +426,87 @@ include ("../connexion.php");
     $(document).ready(function() {
         $("[data-toggle=offcanvas]").click(function() {
             $(".row-offcanvas").toggleClass("active");
+        });
+    });
+</script>
+
+<script>
+    // on document ready, onclieck .delete-btn get data-id on this and set data-id on #deleteRecord
+    $(document).ready(function() {
+        $('.delete-btn').on('click', function() {
+            var id = $(this).data('id');
+            console.log(id);
+            $('#deleteRecord').attr('data-id', id);
+        });
+
+        // on click #deleteRecord get data-id on this and send ajax request
+        $('#deleteRecord').on('click', function() {
+            var id = $(this).data('id');
+            $.ajax({
+                url: './../controller/stockController.php',
+                type: 'POST',
+                data: {id: id, operation:"delete"},
+                success: function(data) {
+                    console.log(data);
+                    alert('Record deleted successfully');
+                    $('#delete').modal('toggle');
+                    $('#tr_' + id).remove();
+                }
+            });
+        });
+
+        $('.edit-btn').on('click', function() {
+            var id_article = $(this).data('id_article');
+            var libelle = $(this).data('libelle');
+            var prix_achat_HT = $(this).data('prix_achat_ht');
+            var prix_vente_HT = $(this).data('prix_vente_ht');
+            var nom_article = $(this).data('nom_article');
+            var tva = $(this).data('tva');
+            var taux_commission = $(this).data('taux_commission');
+            var parution = $(this).data('parution');
+            var stock = $(this).data('stock');
+
+
+            $('#id_article').val(id_article);
+            $('#libelle').val(libelle);
+            $('#prix_achat_HT').val(prix_achat_HT);
+            $('#prix_vente_HT').val(prix_vente_HT);
+            $('#nom_article').val(nom_article);
+            $('#tva').val(tva);
+            $('#taux_commission').val(taux_commission);
+            $('#parution').val(parution);
+            $('#stock').val(stock);
+        });
+
+        $('#updateRecord').on('click', function() {
+            var id_article = $('#id_article').val();
+            var libelle = $('#libelle').val();
+            var prix_achat_HT = $('#prix_achat_HT').val();
+            var prix_vente_HT = $('#prix_vente_HT').val();
+            var nom_article = $('#nom_article').val();
+            var tva = $('#tva').val();
+            var taux_commission = $('#taux_commission').val();
+            var parution = $('#parution').val();
+            var stock = $('#stock').val();
+
+            $.ajax({
+                url: './../controller/stockController.php',
+                type: 'POST',
+                data: {id_article: id_article,stock: stock, libelle: libelle, prix_achat_HT: prix_achat_HT, prix_vente_HT: prix_vente_HT, nom_article: nom_article, tva: tva, taux_commission: taux_commission, parution: parution, operation:"update"},
+                success: function(data) {
+                    console.log(data);
+                    alert('Record updated successfully')
+                    $("#id_article_" + id_article).html(id_article);
+                    $("#libelle_" + id_article).html(libelle);
+                    $("#prix_achat_HT_" + id_article).html(prix_achat_HT);
+                    $("#prix_vente_HT_" + id_article).html(prix_vente_HT);
+                    $("#nom_article_" + id_article).html(nom_article);
+                    $("#tva_" + id_article).html(tva);
+                    $("#taux_commission_" + id_article).html(taux_commission);
+                    $("#parution_" + id_article).html(parution);
+                    $('#edit').modal('toggle');
+                }
+            });
         });
     });
 </script>
